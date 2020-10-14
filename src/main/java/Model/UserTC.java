@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFile {
@@ -10,7 +11,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
     private final String phoneNum;
     private final long tc;
     private final String password;
-    private final String birthDay;
+    private final Date birthDay;
     public UserTC(List<String> list){
         name = list.get(0);
         surname = list.get(1);
@@ -18,7 +19,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         phoneNum = list.get(3);
         tc = Integer.parseInt(list.get(4));
         password = list.get(5);
-        birthDay = list.get(6);
+        birthDay = Date.valueOf(list.get(6));
     }
     public List<String> toList() {
         List<String> list = new ArrayList<>();
@@ -28,11 +29,11 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         list.add(phoneNum);
         list.add(Long.toString(tc));
         list.add(password);
-        list.add(birthDay);
+        list.add(birthDay.toString());
         return list;
     }
     public UserTC(String _name, String _surname, String _email, String _phoneNum, long _tc,
-                  String _password, String _birthDay){
+                  String _password, Date _birthDay){
         name = _name;
         surname = _surname;
         email = _email;
@@ -66,7 +67,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         return password;
     }
 
-    public String getBirthDay() {
+    public Date getBirthDay() {
         return birthDay;
     }
 

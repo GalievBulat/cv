@@ -5,7 +5,7 @@ import Model.WritableToFile;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
+@Deprecated
 public final class FileOutputHandler  implements OutputHandler{
     private final String USERS_FILE;
     public FileOutputHandler(){
