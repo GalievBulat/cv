@@ -2,6 +2,7 @@ import DAO.CommandHasntWorkedException;
 import Service.UserAddingHandler;
 import Service.UserAddingHandlerToADB;
 import Service.UserAddingHandlerToAFile;
+import View.Render;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,7 +35,11 @@ public class RegServlet extends HttpServlet{
         final String email = req.getParameter("email");
         final String phoneNum = req.getParameter("phone_num");
         final String tc = req.getParameter("tc");
-        //MessageDigest.getInstance("SHA").digest(req.getParameter("password"));
+        try {
+                MessageDigest.getInstance("SHA").digest(req.getParameter("password").getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         final String password = req.getParameter("password");
         final String birthDay = req.getParameter("birth_day");
 
@@ -55,18 +61,15 @@ public class RegServlet extends HttpServlet{
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
-            Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
         try {
-            cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\Kakad\\Documents\\cv\\src\\main\\resources\\templatetes"));
-            cfg.setDefaultEncoding("UTF-8");
-            Template temp = cfg.getTemplate("reg.ftl");
+            Render render = new Render();
             Map<String, Object> root = new HashMap<>();
             if (req.getAttribute("errorMessage") != null) {
                 root.put("errorMessage",req.getAttribute("errorMessage"));
             }else {
                 root = Collections.emptyMap();
             }
-            temp.process(root, resp.getWriter());
+            render.renderMap("reg.ftl",root,resp.getWriter());
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e.getMessage(),e);
         }

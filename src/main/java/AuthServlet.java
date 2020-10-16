@@ -2,6 +2,7 @@ import DAO.CommandHasntWorkedException;
 import Model.UserTC;
 import Service.AuthHandler;
 import Service.AuthHandlerToADB;
+import View.Render;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -40,18 +41,15 @@ public class AuthServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
         try {
-            cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\Kakad\\Documents\\cv\\src\\main\\resources\\templatetes"));
-            cfg.setDefaultEncoding("UTF-8");
-            Template temp = cfg.getTemplate("auth.ftl");
+            Render render = new Render();
             Map<String, Object> root = new HashMap<>();
             if (req.getAttribute("errorMessage") != null) {
                 root.put("errorMessage",req.getAttribute("errorMessage"));
             }else {
                 root = Collections.emptyMap();
             }
-            temp.process(root, resp.getWriter());
+            render.renderMap("auth.ftl",root,resp.getWriter());
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e.getMessage(),e);
         }
