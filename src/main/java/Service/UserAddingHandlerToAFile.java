@@ -3,7 +3,7 @@ package Service;
 import Model.UserTC;
 
 import java.util.List;
-
+@Deprecated
 public final class UserAddingHandlerToAFile implements UserAddingHandler {
     private final String fileName;
     public UserAddingHandlerToAFile(String fileName){

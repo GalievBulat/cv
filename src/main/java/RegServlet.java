@@ -35,11 +35,11 @@ public class RegServlet extends HttpServlet{
         final String email = req.getParameter("email");
         final String phoneNum = req.getParameter("phone_num");
         final String tc = req.getParameter("tc");
-        try {
+        /*try {
                 MessageDigest.getInstance("SHA").digest(req.getParameter("password").getBytes());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
         final String password = req.getParameter("password");
         final String birthDay = req.getParameter("birth_day");
 
