@@ -26,9 +26,9 @@ public class AuthServlet extends HttpServlet {
             UserTC user = handler.authoriseByTC(tc,password).orElseThrow(() -> new InvalidKeyException("wrong password"));
             req.getSession().setAttribute("tc",user.getTc());
             resp.sendRedirect("/cv/profile");
-        } catch (IOException| SQLException  e) {
+        } catch (IOException e) {
             throw new RuntimeException(e.getMessage(),e);
-        } catch (InvalidKeyException | CommandHasntWorkedException e) {
+        } catch (InvalidKeyException | RuntimeException e) {
             req.setAttribute("errorMessage",e.getMessage());
             doGet(req,resp);
         }

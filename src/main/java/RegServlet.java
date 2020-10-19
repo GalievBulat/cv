@@ -34,7 +34,7 @@ public class RegServlet extends HttpServlet{
         final String surname = req.getParameter("surname");
         final String email = req.getParameter("email");
         final String phoneNum = req.getParameter("phone_num");
-        final String tc = req.getParameter("tc");
+        final Long tc = Long.parseLong(req.getParameter("tc"));
         /*try {
                 MessageDigest.getInstance("SHA").digest(req.getParameter("password").getBytes());
         } catch (NoSuchAlgorithmException e) {
@@ -43,16 +43,16 @@ public class RegServlet extends HttpServlet{
         final String password = req.getParameter("password");
         final String birthDay = req.getParameter("birth_day");
 
-        String[] userData = {name,surname,email,phoneNum,tc,password,birthDay};
+        String[] userData = {name,surname,email,phoneNum,tc.toString(),password,birthDay};
         List<String> userDataList = Arrays.stream(userData).collect(Collectors.toList());
         UserAddingHandler addingHandler = new UserAddingHandlerToADB();
         try {
             addingHandler.addUser(userDataList);
             req.getSession().setAttribute("tc",tc);
             resp.sendRedirect("/cv/profile");
-        }catch (IOException| SQLException  e) {
+        }catch (IOException  e) {
             throw new RuntimeException(e.getMessage(), e);
-        } catch (InvalidNameException | CommandHasntWorkedException e) {
+        } catch (InvalidNameException | RuntimeException e) {
             req.setAttribute("errorMessage",e.getMessage());
             doGet(req,resp);
         }

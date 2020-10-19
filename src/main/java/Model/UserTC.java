@@ -17,7 +17,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         surname = list.get(1);
         email = list.get(2);
         phoneNum = list.get(3);
-        tc = Integer.parseInt(list.get(4));
+        tc = Long.parseLong(list.get(4));
         password = list.get(5);
         birthDay = Date.valueOf(list.get(6));
     }

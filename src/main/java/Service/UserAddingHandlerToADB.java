@@ -12,15 +12,13 @@ import java.util.List;
 public class UserAddingHandlerToADB implements UserAddingHandler {
 
     @Override
-    public void addUser(List<String> userData) throws InvalidNameException,SQLException, CommandHasntWorkedException {
+    public void addUser(List<String> userData) throws InvalidNameException{
         DAO<UserTC> dao = new UserTCDAOImpl();
         UserTC user = new UserTC(userData);
-        synchronized (dao.getConnection()) {
-            if (user.getPhoneNum().matches("\\+\\d{11}")) {
-                dao.add(user);
-            }else {
-                throw new InvalidNameException("not a number");
-            }
+        if (user.getPhoneNum().matches("\\+\\d{11}")) {
+            dao.add(user);
+        }else {
+            throw new InvalidNameException("not a number");
         }
     }
 }

@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public interface AuthHandler {
-    Optional<UserTC> authoriseByTC(long tc, String password) throws InvalidKeyException, CommandHasntWorkedException, SQLException;
+    Optional<UserTC> authoriseByTC(long tc, String password) throws InvalidKeyException;
 }

@@ -799,7 +799,7 @@ true posixrules
       <ObjectId>13318</ObjectId>
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>604</IntrospectionStateNumber>
+      <IntrospectionStateNumber>620</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16416|16418|5
 sequence|table|16464|16466|1
@@ -850,21 +850,21 @@ sequence|table|16464|16466|1
       <ObjectId>13018</ObjectId>
       <StateNumber>282</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>605</IntrospectionStateNumber>
+      <IntrospectionStateNumber>621</IntrospectionStateNumber>
     </schema>
     <schema id="17" parent="4" name="pg_catalog">
       <ObjectId>11</ObjectId>
       <Comment>system catalog schema</Comment>
       <StateNumber>275</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>606</IntrospectionStateNumber>
+      <IntrospectionStateNumber>622</IntrospectionStateNumber>
     </schema>
     <schema id="18" parent="4" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>607</IntrospectionStateNumber>
+      <IntrospectionStateNumber>623</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="19" parent="4" name="heap">

@@ -6,42 +6,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,AutoCloseable {
+public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCTemplate<UserTC> {
 
-    private final Connection connection;
 
-    @Override
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public UserTCDAOImpl() throws SQLException {
-        this.connection = ConnectionHandler.getConnection();
+    public UserTCDAOImpl(){
     }
 
     //language=sql
-    private final static String findQuery = "SELECT name,surname,email,phonenum,tc,password,birthday usertc FROM usertc WHERE tc = ?";
+    private final static String findQuery = "SELECT * FROM usertc WHERE tc = ?";
 
     @Override
-    public Optional<UserTC> find(long tc) throws CommandHasntWorkedException {
-        try {
-            PreparedStatement pS = connection.prepareStatement(findQuery);
-            try(pS) {
-                pS.setLong(1, tc);
-                ResultSet rS = pS.executeQuery();
-                try(rS) {
-                    if (rS.next()) {
-                        return Optional.of(new UserTC(rS.getString(1), rS.getString(2), rS.getString(3), rS.getString(4), rS.getLong(5), rS.getString(6), rS.getDate(7)));
-                    }
-                    return Optional.empty();
-                }
-            }
-        }catch (SQLException e){
-            throw new CommandHasntWorkedException(e.getMessage());
-        }
+    public Optional<UserTC> find(long tc){
+        List<UserTC> query =  query(findQuery,new UserTCDAOMapper(),tc);
+        if (query.isEmpty()){
+            return Optional.empty();
+        } else
+            return Optional.of(query.get(0));
     }
 
     //language=sql
@@ -49,25 +33,8 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,AutoC
 
 
     @Override
-    public void update(UserTC user,long tc)throws CommandHasntWorkedException {
-        try {
-            PreparedStatement pS = connection.prepareStatement(updateQuery);
-            try(pS) {
-                pS.setString(1, user.getName());
-                pS.setString(2, user.getSurname());
-                pS.setString(3, user.getEmail());
-                pS.setString(4, user.getPhoneNum());
-                pS.setString(5, user.getPassword());
-                pS.setDate(6, user.getBirthDay());
-                pS.setLong(7, tc);
-                int res = pS.executeUpdate();
-                if (res == 0) {
-                    throw new CommandHasntWorkedException("upd fun didn't work");
-                }
-            }
-        }catch (SQLException e){
-            throw new CommandHasntWorkedException(e.getMessage());
-        }
+    public void update(UserTC user,long tc) {
+        query(updateQuery,new UserTCDAOMapper(),tc);
     }
 
     //language=sql
@@ -75,83 +42,82 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,AutoC
 
 
     @Override
-    public void delete(long tc) throws CommandHasntWorkedException {
-        try {
-            PreparedStatement pS = connection.prepareStatement(deleteQuery);
-            try(pS) {
-                pS.setLong(1, tc);
-                int res = pS.executeUpdate();
-                if (res == 0) {
-                    throw new CommandHasntWorkedException("del fun didn't work");
-                }
-            }
-        } catch (SQLException e){
-            throw new CommandHasntWorkedException(e.getMessage());
+    public void delete(long tc){
+        int res = update(deleteQuery,tc);
+        if (res == 0){
+            throw new RuntimeException();
         }
     }
-    //language=sql
-    private final static String addQuery = "INSERT into usertc (name,surname,email,phonenum,tc,password,birthday) VALUES (?,?,?,?,?,?,?)";
-
     @Override
-    public void update(UserTC model) throws CommandHasntWorkedException {
+    public void update(UserTC model){
         update(model,model.getTc());
     }
 
     @Override
-    public void delete(UserTC model) throws CommandHasntWorkedException {
+    public void delete(UserTC model){
         delete(model.getTc());
     }
 
+
+    //language=sql
+    private final static String addQuery = "INSERT into usertc (name,surname,email,phonenum,tc,password,birthday) VALUES (?,?,?,?,?,?,?)";
+
     @Override
-    public void add(UserTC user) throws CommandHasntWorkedException {
-        try {
-            PreparedStatement pS = connection.prepareStatement(addQuery);
-            try(pS) {
-                pS.setString(1, user.getName());
-                pS.setString(2, user.getSurname());
-                pS.setString(3, user.getEmail());
-                pS.setString(4, user.getPhoneNum());
-                pS.setLong(5, user.getTc());
-                pS.setString(6, user.getPassword());
-                pS.setDate(7, user.getBirthDay());
-                int res = pS.executeUpdate();
-                if (res == 0) {
-                    throw new CommandHasntWorkedException("upd fun didn't work");
-                }
-            }
-        } catch (SQLException e){
-            throw new CommandHasntWorkedException(e.getMessage());
+    public void add(UserTC user){
+        int res = update(addQuery,
+                user.getName(),user.getSurname(),user.getEmail(),user.getPhoneNum(),user.getTc(),user.getPassword(),user.getBirthDay());
+        if (res == 0){
+            throw new RuntimeException();
         }
     }
 
-    @Override
-    public List<UserTC> query(Specification<UserTC> specification) {
-        return null;
-    }
 
     //language=sql
-    private final static String checkQuery = "SELECT tc FROM usertc WHERE tc = ?" ;
+    private final static String checkQuery = "SELECT * FROM usertc WHERE tc = ?" ;
 
     @Override
-    public boolean checkIfPresentedByTC(long tc) throws CommandHasntWorkedException {
+    public boolean checkIfPresentedByTC(long tc){
+        return !query(checkQuery,new UserTCDAOMapper(),tc).isEmpty();
+    }
+
+    @Override
+    public List<UserTC> query(String SQLQuery, RowMapper<UserTC> rowMapper, Object... args) {
+        List<UserTC> userTCList = new ArrayList<>();
         try {
-            PreparedStatement pS = connection.prepareStatement(checkQuery);
-            try(pS) {
-                pS.setLong(1, tc);
-                ResultSet rs = pS.executeQuery();
-                try(rs) {
-                    return rs.next();
+            Connection connection = ConnectionHandler.getConnection();
+            try(connection) {
+                PreparedStatement pS = connection.prepareStatement(SQLQuery);
+                try (pS) {
+                    for (int i = 0; i < args.length; i++)
+                        pS.setObject(i+1, args[i]);
+                    ResultSet rs = pS.executeQuery();
+                    try (rs) {
+                        while (rs.next()){
+                            userTCList.add(rowMapper.getInstance(rs));
+                        }
+                    }
                 }
             }
         }catch (SQLException e){
-            throw new CommandHasntWorkedException(e.getMessage());
+            throw new RuntimeException(e.getMessage(),e);
         }
+        return userTCList;
     }
-    @Override
-    public void close(){
-        try {
-            connection.close();
-        } catch (SQLException e) { throw new RuntimeException(e.getMessage());}
 
+    @Override
+    public int update(String SQLQuery, Object... args) {
+        try {
+            Connection connection = ConnectionHandler.getConnection();
+            try(connection) {
+                PreparedStatement pS = connection.prepareStatement(SQLQuery);
+                try (pS) {
+                    for (int i = 0; i < args.length; i++)
+                        pS.setObject(i+1, args[i]);
+                    return  pS.executeUpdate();
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e.getMessage(),e);
+        }
     }
 }

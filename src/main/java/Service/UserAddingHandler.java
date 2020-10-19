@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UserAddingHandler {
-    public void addUser(List<String> userData) throws InvalidNameException, SQLException, CommandHasntWorkedException;
+    public void addUser(List<String> userData) throws InvalidNameException;
 }

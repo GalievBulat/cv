@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class AuthHandlerToADB implements AuthHandler {
     @Override
-    public Optional<UserTC> authoriseByTC(long tc, String password) throws InvalidKeyException,CommandHasntWorkedException,SQLException {
+    public Optional<UserTC> authoriseByTC(long tc, String password) throws InvalidKeyException {
         DAO<UserTC> dao = new UserTCDAOImpl();
         Optional<UserTC> oUser = dao.find(tc);
         if (oUser.isPresent()){

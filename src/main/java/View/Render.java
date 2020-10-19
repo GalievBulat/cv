@@ -15,12 +15,12 @@ public class Render {
     private final Configuration cfg;
     public Render() throws IOException{
         cfg = new Configuration(Configuration.VERSION_2_3_27);
-        cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\Kakad\\Documents\\cv\\src\\main\\resources\\templatetes"));
+        cfg.setDirectoryForTemplateLoading(new File(directory));
         cfg.setDefaultEncoding("UTF-8");
 
     }
     public void renderMap(String file, Map<String,Object> root, Writer writer) throws IOException, TemplateException {
-        Template temp = cfg.getTemplate("reg.ftl");
+        Template temp = cfg.getTemplate(file);
         temp.process(root, writer);
     }
 }

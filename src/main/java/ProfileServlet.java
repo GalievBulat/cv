@@ -18,7 +18,7 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = req.getSession();
         try {
             DAO<UserTC> dao = new UserTCDAOImpl();
-            long tc =(long) session.getAttribute("tc");
+            long tc = (long) session.getAttribute("tc");
             Optional <UserTC> oUser = dao.find(tc);
             if (oUser.isPresent()){
                 UserTC user = oUser.get();
@@ -27,7 +27,7 @@ public class ProfileServlet extends HttpServlet {
                 req.setAttribute("errorMessage","wrong password");
                 resp.sendRedirect("/cv/auth");
             }
-        } catch (SQLException | IOException | CommandHasntWorkedException throwables) {
+        } catch ( IOException | RuntimeException throwables) {
             req.setAttribute("errorMessage",throwables.getMessage());
             resp.sendRedirect("/cv/auth");
         }
