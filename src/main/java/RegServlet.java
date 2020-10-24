@@ -69,7 +69,7 @@ public class RegServlet extends HttpServlet{
             }else {
                 root = Collections.emptyMap();
             }
-            render.renderMap("reg.ftl",root,resp.getWriter());
+            render.renderMap("registration.ftl",root,resp.getWriter());
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e.getMessage(),e);
         }

@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCTemplate<UserTC> {
+public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC> {
 
+
+    private final JDBCTemplate<UserTC> jdbc;
 
     public UserTCDAOImpl(){
+        jdbc = new JDBCTemplateGenericImpl<UserTC>();
     }
 
     //language=sql
@@ -21,7 +24,7 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCT
 
     @Override
     public Optional<UserTC> find(long tc){
-        List<UserTC> query =  query(findQuery,new UserTCDAOMapper(),tc);
+        List<UserTC> query =  jdbc.query(findQuery,new UserTCDAOMapper(),tc);
         if (query.isEmpty()){
             return Optional.empty();
         } else
@@ -34,7 +37,7 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCT
 
     @Override
     public void update(UserTC user,long tc) {
-        query(updateQuery,new UserTCDAOMapper(),tc);
+        jdbc.query(updateQuery,new UserTCDAOMapper(),tc);
     }
 
     //language=sql
@@ -43,7 +46,7 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCT
 
     @Override
     public void delete(long tc){
-        int res = update(deleteQuery,tc);
+        int res = jdbc.update(deleteQuery,tc);
         if (res == 0){
             throw new RuntimeException();
         }
@@ -64,11 +67,16 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCT
 
     @Override
     public void add(UserTC user){
-        int res = update(addQuery,
+        int res = jdbc.update(addQuery,
                 user.getName(),user.getSurname(),user.getEmail(),user.getPhoneNum(),user.getTc(),user.getPassword(),user.getBirthDay());
         if (res == 0){
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public Optional<UserTC> get(int num) {
+        return find(num);
     }
 
 
@@ -77,47 +85,8 @@ public final class UserTCDAOImpl implements DAO<UserTC>,Repository<UserTC>,JDBCT
 
     @Override
     public boolean checkIfPresentedByTC(long tc){
-        return !query(checkQuery,new UserTCDAOMapper(),tc).isEmpty();
+        return !jdbc.query(checkQuery,new UserTCDAOMapper(),tc).isEmpty();
     }
 
-    @Override
-    public List<UserTC> query(String SQLQuery, RowMapper<UserTC> rowMapper, Object... args) {
-        List<UserTC> userTCList = new ArrayList<>();
-        try {
-            Connection connection = ConnectionHandler.getConnection();
-            try(connection) {
-                PreparedStatement pS = connection.prepareStatement(SQLQuery);
-                try (pS) {
-                    for (int i = 0; i < args.length; i++)
-                        pS.setObject(i+1, args[i]);
-                    ResultSet rs = pS.executeQuery();
-                    try (rs) {
-                        while (rs.next()){
-                            userTCList.add(rowMapper.getInstance(rs));
-                        }
-                    }
-                }
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e.getMessage(),e);
-        }
-        return userTCList;
-    }
 
-    @Override
-    public int update(String SQLQuery, Object... args) {
-        try {
-            Connection connection = ConnectionHandler.getConnection();
-            try(connection) {
-                PreparedStatement pS = connection.prepareStatement(SQLQuery);
-                try (pS) {
-                    for (int i = 0; i < args.length; i++)
-                        pS.setObject(i+1, args[i]);
-                    return  pS.executeUpdate();
-                }
-            }
-        }catch (SQLException e){
-            throw new RuntimeException(e.getMessage(),e);
-        }
-    }
 }

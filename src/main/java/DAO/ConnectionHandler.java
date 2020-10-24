@@ -14,7 +14,7 @@ public class ConnectionHandler {
     }
 
     public static synchronized Connection getConnection() throws SQLException {
-        if (connection==null) {
+        if (connection==null || connection.isClosed()) {
             try {
                 Class.forName("org.postgresql.Driver");
             } catch (ClassNotFoundException e) {
