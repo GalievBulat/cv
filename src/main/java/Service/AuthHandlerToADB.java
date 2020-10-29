@@ -9,7 +9,7 @@ import java.security.InvalidKeyException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class AuthHandlerToADB implements AuthHandler {
+public final class AuthHandlerToADB implements AuthHandler {
     @Override
     public Optional<UserTC> authoriseByTC(long tc, String password) throws InvalidKeyException {
         DAO<UserTC> dao = new UserTCDAOImpl();
@@ -18,9 +18,8 @@ public class AuthHandlerToADB implements AuthHandler {
             UserTC user = oUser.get();
             if (user.getPassword().equals(password))
                 return oUser;
-        }else {
-            throw new InvalidKeyException("no user found for this tc");
-        }
+        }else throw new InvalidKeyException("no user found for this tc");
+
         return Optional.empty();
     }
 }

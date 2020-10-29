@@ -1,0 +1,213 @@
+
+.backgr{
+    width:100%; height:max-content;
+    min-height: 100%;
+    background: round;
+    background: url(back_final.png);
+}
+
+.backgr_main1{
+    width:100%; height:90%;
+    margin-top: 0;
+    display: flex;
+    background: url(bus.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+.backgr_main2{
+    width:100%; height:90%;
+    margin-top: 0;
+    display: flex;
+    background: url(job.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+.figure{
+    position: relative;
+    width: 40%;
+    height: min-content;
+    margin: auto;
+    background: #ECECEC;
+    transform: skew(-45deg);
+    overflow: hidden;
+}
+.figure2{
+    margin: auto;
+    margin-top: 3%;
+    background: #EAEAEA;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+}
+.list{
+    margin-top: 10px;
+    width: 100%;
+}
+.figure3{
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background: #34495E;
+    width: 20%;
+    height: 40px;
+    transform: skew(-45deg);
+
+    color: #C6C5B9;
+    font-size: 200%;
+}
+.main_button{
+    margin: 5% auto 5% auto;
+    width: 20%;
+}
+.skewed{
+    transform: skew(45deg);
+}
+.unskewed{
+    transform: none;
+}
+
+.text{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+    font-size: 350%;
+    overflow: hidden;
+    text-align: center;
+}
+.default{
+    font-size: 100%; width: 100%;  margin-bottom: 0;
+}
+.leftAl{
+    width: min-content;
+    height: 60%;
+    padding: 15px;
+    margin-left: 5%;
+}
+.rightAl{
+    width: 80%;
+    margin-left: 15px;
+    margin-right: 5%;
+    height: 600px; overflow: auto;
+    background: #1c3738;
+    border-radius: .5rem;
+}
+.form{
+    flex-direction: column;display: flex;width: 80%; margin: auto;
+}
+.form_element{
+    border: 1px solid #C6C5B9;
+    margin-top: 20px;
+    font-size: 150%;
+    background: transparent;
+    text-align: center;
+}
+.highlight{
+    padding: 3%;
+    text-align: center;
+    font-size: 250%;
+}
+.main_f{
+    width: 30%;
+    height: 100px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.75);
+    transform: skew(-45deg);
+    margin-top: 0px;
+
+    overflow: hidden;
+}
+.main_t{
+    transform: skew(45deg);
+    color: #C6C5B9;
+    font-size: 400%;
+}
+.form_text{
+    font-size: larger;
+    padding-right: 15px;
+    padding-top: 20%;
+}
+.top_margin{
+    margin-top: 3%;
+}
+.highlight_back{
+    width: max-content;
+    height: max-content;
+    background: rgba(0, 0, 0, 0.8);
+    margin: auto;
+    padding: 10px;
+}
+.highlight_text{
+    font-family: Roboto,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 350%;
+    text-align: center;
+    color: #FFFFFF;
+    overflow: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.triangle{
+    border: 250px solid transparent;
+    border-right: 250px solid black;
+    border-bottom: 250px solid black;
+    width: auto;
+    margin-left: auto;
+    align-self: end;
+    margin-top: auto;
+}
+.backgr_colour{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #34495E;
+}
+.line{
+    width: 4px;
+    height: 40px;
+    background: #000000;
+}
+.container_highlight{
+    width: 60%;
+    margin-left: 10%;
+    background: #EAEAEA;
+    padding: 30px;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+}
+.container_highlight_idle{
+    background: #EAEAEA;
+    padding: 30px;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+}
+.image_back{
+    margin-left: auto;
+    align-self: start;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    width: 20%;
+    height: 100%;
+    background-image: url(image_trains.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-right: 5%;
+    border: 8px solid #EAEAEA;
+}
+.devider{
+    width: 100%;
+    height: 10%;
+    background: black;
+}
+
+.spread{
+    width: 100%;
+    height: 100%;
+}
+.box_group{
+    height: 50%;
+    display: flex;
+    margin-bottom: auto;
+}
+.fancy_colour{
+    color:  #C6C5B9;
+}

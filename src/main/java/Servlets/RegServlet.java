@@ -1,46 +1,29 @@
-import DAO.CommandHasntWorkedException;
+package Servlets;
+
+import Service.TextEncoding;
 import Service.UserAddingHandler;
 import Service.UserAddingHandlerToADB;
-import Service.UserAddingHandlerToAFile;
 import View.Render;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.naming.InvalidNameException;
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.beans.Encoder;
-import java.io.File;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
-@WebServlet("/reg")
 public class RegServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        TextEncoding textEncoding = new TextEncoding();
         final String name = req.getParameter("name");
         final String surname = req.getParameter("surname");
         final String email = req.getParameter("email");
         final String phoneNum = req.getParameter("phone_num");
         final Long tc = Long.parseLong(req.getParameter("tc"));
-        /*try {
-                MessageDigest.getInstance("SHA").digest(req.getParameter("password").getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }*/
-        final String password = req.getParameter("password");
+        final String password = textEncoding.encodeText(req.getParameter("password"));
         final String birthDay = req.getParameter("birth_day");
 
         String[] userData = {name,surname,email,phoneNum,tc.toString(),password,birthDay};

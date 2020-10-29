@@ -1,18 +1,23 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="cv">
-    <output-path>$PROJECT_DIR$/out/artifacts/cv</output-path>
-    <root id="archive" name="cv.war">
+  <artifact type="war" name="art">
+    <output-path>$PROJECT_DIR$/out/artifacts/art</output-path>
+    <root id="archive" name="unnamed.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
+          <element id="library" level="application" name="jquery" />
           <element id="module-output" name="cv" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
           <element id="library" level="project" name="freemarker" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.2.17" />
         </element>
+        <element id="file-copy" path="$PROJECT_DIR$/webapp/WEB-INF/web.xml" />
       </element>
+      <element id="directory" name="templates">
+        <element id="dir-copy" path="$PROJECT_DIR$/templates" />
+      </element>
+      <element id="file-copy" path="$USER_HOME$/Pictures/avatar.png" />
     </root>
   </artifact>
 </component>

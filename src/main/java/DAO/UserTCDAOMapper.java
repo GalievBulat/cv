@@ -11,9 +11,9 @@ public class UserTCDAOMapper implements RowMapper<UserTC> {
     public UserTC getInstance(ResultSet resultSet) {
         try {
             return new UserTC(
-                    resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-                    resultSet.getString(4), resultSet.getLong(5), resultSet.getString(6),
-                    resultSet.getDate(7));
+                    resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("email"),
+                    resultSet.getString("phonenum"), resultSet.getLong("tc"), resultSet.getString("password"),
+                    resultSet.getDate("birthday"),resultSet.getString("avatar_path"));
         } catch (SQLException throwables) {
             throw new RuntimeException(throwables);
         }

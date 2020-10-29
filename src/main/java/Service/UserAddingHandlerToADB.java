@@ -9,7 +9,7 @@ import javax.naming.InvalidNameException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserAddingHandlerToADB implements UserAddingHandler {
+public final class UserAddingHandlerToADB implements UserAddingHandler {
 
     @Override
     public void addUser(List<String> userData) throws InvalidNameException{

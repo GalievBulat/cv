@@ -1,7 +1,10 @@
+package Servlets;
+
 import DAO.CommandHasntWorkedException;
 import Model.UserTC;
 import Service.AuthHandler;
 import Service.AuthHandlerToADB;
+import Service.TextEncoding;
 import View.Render;
 import freemarker.template.TemplateException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +22,9 @@ import java.util.Map;
 public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
+        TextEncoding textEncoding = new TextEncoding();
         final long tc = Long.parseLong(req.getParameter("tc"));
-        final String password = req.getParameter("password");
+        final String password = textEncoding.encodeText(req.getParameter("password"));
         AuthHandler handler = new AuthHandlerToADB();
         try {
             UserTC user = handler.authoriseByTC(tc,password).orElseThrow(() -> new InvalidKeyException("wrong password"));

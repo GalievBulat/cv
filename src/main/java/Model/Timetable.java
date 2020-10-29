@@ -22,17 +22,6 @@ public class Timetable {
         this.time = time;
         this.route_num = route_num;
     }
-    private int bitArrayToInt(Boolean[] day_of_the_week){
-        int res = 0;
-        for (int i = 0; i < day_of_the_week.length; i++) {
-            if (day_of_the_week[i]){
-                res = res<<1;
-                res++;
-            }
-        }
-        return res;
-    }
-
     @Override
     public String toString() {
         return "Timetable{" +
@@ -45,11 +34,11 @@ public class Timetable {
     }
     public String toJSON(){
         return "{" +
-                "id=" + id +
-                ", bus_stop='" + bus_stop + '\'' +
-                ", day_of_the_week=" + day_of_the_week +
-                ", time=" + time +
-                ", route_num=" + route_num +
+                "\"id\":" + id +
+                ", \"bus_stop\":\"" + bus_stop + '\"' +
+                ", \"day_of_the_week\":\"" + day_of_the_week + "\""+
+                ", \"time\":\"" + time + "\"" +
+                ", \"route_num\":" + route_num +
                 '}';
     }
 

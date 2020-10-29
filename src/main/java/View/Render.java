@@ -12,12 +12,12 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Render {
-    private static final String directory ="C:\\Users\\Kakad\\Documents\\cv\\src\\main\\resources\\templatetes";
+    //private static final String directory ="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\cv\\templates";
+    private static final String directory ="C:\\Users\\Kakad\\Documents\\cv\\templates";
     private final Configuration cfg;
     public Render() throws IOException{
         cfg = new Configuration(Configuration.VERSION_2_3_30);
         cfg.setDefaultEncoding("UTF-8");
-        cfg.setOutputEncoding("UTF-8");
         cfg.setDirectoryForTemplateLoading(new File(directory));
 
 

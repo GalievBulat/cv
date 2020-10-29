@@ -12,6 +12,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
     private final long tc;
     private final String password;
     private final Date birthDay;
+    private final String avatarPath ;
     public UserTC(List<String> list){
         name = list.get(0);
         surname = list.get(1);
@@ -20,6 +21,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         tc = Long.parseLong(list.get(4));
         password = list.get(5);
         birthDay = Date.valueOf(list.get(6));
+        avatarPath = null;
     }
     public List<String> toList() {
         List<String> list = new ArrayList<>();
@@ -41,6 +43,18 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         tc = _tc;
         password = _password;
         birthDay = _birthDay;
+        avatarPath = null;
+    }
+    public UserTC(String _name, String _surname, String _email, String _phoneNum, long _tc,
+                  String _password, Date _birthDay,String _avatarPath){
+        name = _name;
+        surname = _surname;
+        email = _email;
+        phoneNum = _phoneNum;
+        tc = _tc;
+        password = _password;
+        birthDay = _birthDay;
+        avatarPath = _avatarPath;
     }
 
     public long getTc() {
@@ -86,5 +100,14 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
     @Override
     public String getDBRepresentation() {
         return toString();
+    }
+
+    public UserTC getUserWithPicture(UserTC user,String avatarPath){
+        return new UserTC(user.getName(),user.getSurname(),user.getEmail(),user.getPhoneNum(),user.getTc(),
+                user.getPassword(),user.getBirthDay(),avatarPath);
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
     }
 }
