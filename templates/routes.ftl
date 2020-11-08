@@ -2,9 +2,9 @@
 <@config name="routes"/>
 <#include "resources/background.ftl">
 <#include "resources/nav.ftl">
-<div  style="overflow: auto;margin-top: 56px;">
+<div  style="margin-top: 56px;">
     <#include  "resources/header.ftl">
-    <@header text ="Timetable"/>
+    <@header text ="Маршруты"/>
     <div style="display: flex;">
         <div class="figure2 leftAl">
             <form method="post" id = "form" action="/cv/timetable">
@@ -41,46 +41,16 @@
                     <p class="highlight  default" style="font-size: 150%">Поиск</p></div>
             </form>
             <#include "resources/field.ftl">
-            <script>
-                function send() {
-                    let form = $("#form")[0];
-                    let formObj = new FormData(form);
-                    let root = {};
-                    formObj.forEach((value, key) => root[key] = value);
-                    let json = JSON.stringify(root);
-                    $.ajax({
-                        type: 'POST',
-                        url: form.action,
-                        data: json,
-                        processData: false,
-                        contentType: false,
-                        data_type: "json",
-                        success: function (_data) {
-                            let inf = JSON.parse(_data);
-                            let rootEl = document.getElementById("list");
-                            rootEl.innerText = "";
-                            for (i in inf){
-                                console.log(inf[i]["id"]);
-                                let el = document.createElement("div");
-                                el.innerHTML = "<div class=\"card text-white bg-dark mb-3\" > <div class=\"card-header\">" + "Маршрут номер:" + inf[i]["route_num"] + "</div> <div class=\"card-body\"> <h5 class=\"card-title\">" + inf[i]["time"] + "</h5> <p class=\"card-text\">" + "День недели: " + inf[i]["day_of_the_week"] + "</p> </div> </div>";
-                                rootEl.appendChild(el);
-                            }
-
-                        },
-                        error: function (_data) {
-                            alert(JSON.stringify(_data));
-                        }
-                    });
-                }
-            </script>
         </div>
-        <div class="figure2 rightAl " >
-            <div style="background: black;height: 45px;"></div>
-            <div class="spread" id="list"></div>
+        <div class="figure2 rightAl "  style="text-align: center;">
+            <div style="background: black;height: 45px;border-radius: 0.5rem 0.5rem 0 0;"></div>
+            <div class="spread" id="list" style="overflow: auto"></div>
         </div>
     </div>
 </div>
+<#include "resources/footer.ftl">
 </body>
 <@bootstrapjs></@bootstrapjs>
+<script src="templates/resources/routes.js" charset="UTF-8"></script>
 
 </html>

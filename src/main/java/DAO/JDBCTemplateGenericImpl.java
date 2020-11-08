@@ -16,7 +16,7 @@ public class JDBCTemplateGenericImpl<T> implements JDBCTemplate<T> {
         List<T> list = new ArrayList<>();
         try {
             Connection connection = ConnectionHandler.getConnection();
-            //try(connection) {
+            try(connection) {
                 synchronized (connection) {
                     PreparedStatement pS = connection.prepareStatement(SQLQuery);
                     try (pS) {
@@ -29,7 +29,7 @@ public class JDBCTemplateGenericImpl<T> implements JDBCTemplate<T> {
                             }
                         }
                     }
-                //}
+                }
             }
         }catch (SQLException e){
             throw new RuntimeException(e);

@@ -1,25 +1,30 @@
 <div class="fixed-top">
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
-            <a href = "http://localhost:8081/cv/main">
+            <a href = "http://localhost:8088/cv/main">
                 <h5 class="text-white h4">Главная страница</h5>
             </a>
         </div>
         <div class="bg-dark p-4">
-            <a href = "http://localhost:8081/cv/auth">
-            <h5 class="text-white h4">Авторизация</h5>
+            <a href = "http://localhost:8088/cv/profile">
+            <h5 class="text-white h4">Профиль | Авторизация</h5>
             </a>
             <span class="text-muted">Здесь вы можете войти в систему</span>
         </div>
         <div class="bg-dark p-4">
-            <a href = "http://localhost:8081/cv/reg">
+            <a href = "http://localhost:8088/cv/reg">
                 <h5 class="text-white h4">Регистрация</h5>
             </a>
             <span class="text-muted">Здесь вы можете зарегестрироваться</span>
         </div>
         <div class="bg-dark p-4">
-            <a href = "http://localhost:8081/cv/auth">
-                <h5 class="text-white h4">Форум</h5>
+            <a href = "http://localhost:8088/cv/forum">
+                <h5 class="text-white h4">Ответы на вопросы</h5>
+            </a>
+        </div>
+        <div class="bg-dark p-4">
+            <a href = "http://localhost:8088/cv/timetable">
+                <h5 class="text-white h4">Поиск маршрута</h5>
             </a>
         </div>
     </div>

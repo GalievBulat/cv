@@ -26,7 +26,10 @@ public class AuthServlet extends HttpServlet {
 
         final long tc = Long.parseLong(req.getParameter("tc"));
         final String password = textEncoding.encodeText(req.getParameter("password"));
-        final boolean remember =  req.getParameter("remember_me").equals("on") ;
+        boolean remember = false;
+        if (req.getParameter("remember_me") !=null) {
+            remember = req.getParameter("remember_me").equals("on");
+        }
         AuthHandler handler = new UserOperatingHandlerDB();
         try {
             UserTC user = handler.authoriseByTC(tc,password).orElseThrow(() -> new InvalidKeyException("wrong password"));
@@ -39,7 +42,7 @@ public class AuthServlet extends HttpServlet {
             }
             resp.sendRedirect("/cv/profile");
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage(),e);
+            throw new RuntimeException(e);
         } catch (InvalidKeyException | RuntimeException e) {
             req.setAttribute("errorMessage",e.getMessage());
             doGet(req,resp);
@@ -57,7 +60,7 @@ public class AuthServlet extends HttpServlet {
             }
             render.renderMap("auth.ftl",root,resp.getWriter());
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage(),e);
+            throw new RuntimeException(e);
         }
     }
 }

@@ -11,6 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,10 +21,10 @@ import java.util.stream.Collectors;
 @MultipartConfig
 public class ProfileServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
-        try {
             UserOperatingHandlerDB searchingHandler = new UserOperatingHandlerDB();
+
             long tc = (long) session.getAttribute("tc");
             Optional <UserTC> oUser = searchingHandler.searchForUser(tc);
             Render render= new Render();
@@ -36,31 +37,34 @@ public class ProfileServlet extends HttpServlet {
                 if (user.getAvatarPath()!=null){
                     root.put("avatar",user.getAvatarPath());
                 } else root.put("avatar","avatar.png");
+                if (req.getAttribute("errorMessage") != null)
+                    root.put("errorMessage",req.getAttribute("errorMessage"));
                 render.renderMap("profile.ftl",root,resp.getWriter());
             }else {
                 req.setAttribute("errorMessage","wrong password");
                 resp.sendRedirect("/cv/auth");
             }
-        } catch (IOException | RuntimeException throwables) {
-            req.setAttribute("errorMessage",throwables.getMessage());
-            resp.sendRedirect("/cv/auth");
-        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        long tc = (long) session.getAttribute("tc");
-        String json =req.getReader().lines().collect(Collectors.joining());
-        JSONConverter converter = new JSONConverter();
-        String[] strings = converter.convertJSON(json);
-        String name =  strings[0].equals("name")? strings[1] : "";
-        String surname =  strings[2].equals("surname")? strings[3] : "";
-        UserOperatingHandlerDB handlerDB = new UserOperatingHandlerDB();
-        UserTC userTC = handlerDB.searchForUser(tc).orElseThrow(IllegalArgumentException::new);
-        userTC.setName(name);
-        userTC.setSurname(surname);
-        handlerDB.updateUser(userTC);
-        resp.setStatus(200);
+        try {
+            HttpSession session = req.getSession();
+            long tc = (long) session.getAttribute("tc");
+            String json = req.getReader().lines().collect(Collectors.joining());
+            JSONConverter converter = new JSONConverter();
+            String[] strings = converter.convertJSON(json);
+            String name = strings[0].equals("name") ? strings[1] : "";
+            String surname = strings[2].equals("surname") ? strings[3] : "";
+            UserOperatingHandlerDB handlerDB = new UserOperatingHandlerDB();
+            UserTC userTC = handlerDB.searchForUser(tc).orElseThrow(IllegalArgumentException::new);
+            userTC.setName(name);
+            userTC.setSurname(surname);
+            handlerDB.updateUser(userTC);
+            resp.setStatus(200);
+        }catch (RuntimeException e) {
+            req.setAttribute("errorMessage",e.getMessage());
+            doGet(req,resp);
+        }
     }
 }

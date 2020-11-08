@@ -17,11 +17,17 @@ import java.io.IOException;
 public class AvatarGettingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Part avatar =  req.getPart("avatar");
-        PhotoReceiveHandler pR = new PhotoReceiveHandler();
-        String path = pR.receiveAPhoto(avatar,getServletContext().getRealPath(""),(long)(req.getSession(false).getAttribute("tc")));
-        UserPhotoAdding photoAdding = new UserPhotoAdding();
-        photoAdding.addPhotoPathToUser((long) req.getSession().getAttribute("tc"),path);
-        resp.getWriter().write(path);
+        try {
+            Part avatar = req.getPart("avatar");
+            PhotoReceiveHandler pR = new PhotoReceiveHandler();
+            String path = pR.receiveAPhoto(avatar, getServletContext().getRealPath(""), (long) (req.getSession(false).getAttribute("tc")));
+            UserPhotoAdding photoAdding = new UserPhotoAdding();
+            photoAdding.addPhotoPathToUser((long) req.getSession().getAttribute("tc"), path);
+            resp.getWriter().write(path);
+        } catch (IOException | RuntimeException throwables) {
+        req.setAttribute("errorMessage",throwables.getMessage());
+        resp.sendRedirect("/cv/profile");
+    }
+
     }
 }

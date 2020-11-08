@@ -88,7 +88,7 @@
     width: 80%;
     margin-left: 15px;
     margin-right: 5%;
-    height: 600px; overflow: auto;
+    height: 600px;
     background: #1c3738;
     border-radius: .5rem;
 }
@@ -210,4 +210,8 @@
 }
 .fancy_colour{
     color:  #C6C5B9;
+}
+.card_style{
+    margin-bottom: 20px;
+    background: lightgray;
 }

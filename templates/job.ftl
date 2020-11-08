@@ -1,6 +1,6 @@
 
 <#include  "resources/config.ftl">
-<@config name="auth"/>
+<@config name="job"/>
 <body style=" margin: 0;  height: 100%;font-family: Times New Roman,serif;font-style: normal;font-weight: 600;">
 <#include "resources/nav.ftl">
 
@@ -17,10 +17,11 @@
                 <div class="line"></div>
                 <h1 class="h_text " style="margin-left: 20px">Заполните резюме уже сегодня</h1>
             </div>
-            <h3>blblblbla</h3>
+            <h3>Найдите работу в сплоченном коллективе профессионалов.</h3>
         </div>
     </div>
 </div>
+<#include "resources/footer.ftl">
 </body>
 <@bootstrapjs></@bootstrapjs>
 </html>

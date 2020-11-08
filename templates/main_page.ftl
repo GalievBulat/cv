@@ -1,6 +1,6 @@
 
 <#include  "resources/config.ftl">
-<@config name="auth"/>
+<@config name="main"/>
 <body style=" margin: 0;  height: 100%;font-family: Times New Roman,serif;font-style: normal;font-weight: 600;">
 <#include "resources/nav.ftl">
 
@@ -17,11 +17,14 @@
                 <div class="line"></div>
                 <h1 class="h_text" style="margin-left: 20px">Многолетний опыт</h1>
             </div>
-            <h3>blblblbla</h3>
+            <h3>Наша компания представлена на рынке с 1932 года до н.э.
+                Благодаря чему наши сотрудники это команда профессионалов,
+                который смогут предоставить вам лучший сервис.  </h3>
         </div>
         <div class="image_back"></div>
     </div>
 </div>
+<#include "resources/footer.ftl">
 </body>
 <@bootstrapjs></@bootstrapjs>
 </html>

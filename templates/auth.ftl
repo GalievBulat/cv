@@ -6,12 +6,9 @@
 
 <div  style="margin-top: 56px;">
     <#include  "resources/header.ftl">
-    <@header text ="Log in"/>
+    <@header text ="Авторизизацция"/>
     <div class="figure2" style="width: 80%;">
-
-        <#if errorMessage?has_content >
-            <p class="highlight">${errorMessage}</p>
-        </#if>
+        <#include "resources/errors.ftl">
         <form method="post"  class="form ">
             <label class="highlight">Введите номер карты и пароль</label>
             <input class="form_element" type="number" name="tc" placeholder="tc"/>
@@ -25,6 +22,7 @@
     </div>
 
 </div>
+<#include "resources/footer.ftl">
 
 <@bootstrapjs></@bootstrapjs>
 </body>

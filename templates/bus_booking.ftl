@@ -1,13 +1,13 @@
 <#include  "resources/config.ftl">
-<@config name="reg"/>
+<@config name="booking"/>
 <#include "resources/background.ftl">
 <#include "resources/nav.ftl">
 
 <div style="margin-top: 56px;">
     <#include  "resources/header.ftl">
-    <@header text ="Sign up"/>
-
+    <@header text ="Бронирование"/>
     <div class="figure2" style="width: 80%; text-align: center;">
+        <#include "resources/errors.ftl">
         <form  method="post" id = "form" action="/cv/booking">
             <label class="highlight">Модель автобуса</label>
             <select class="list form_element" name="bus" style="text-align: center;">
@@ -27,6 +27,7 @@
     </div>
 
 </div>
+<#include "resources/footer.ftl">
 
 <@bootstrapjs></@bootstrapjs>
 </body>

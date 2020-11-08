@@ -18,7 +18,7 @@ public class ConnectionHandler {
                 try {
                     Class.forName("org.postgresql.Driver");
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
                 connection = DriverManager.getConnection(url, Secret.username, Secret.password);
 
@@ -26,13 +26,6 @@ public class ConnectionHandler {
             return connection;
         } catch (SQLException e){
             throw new RuntimeException(e);
-        }
-    }
-    public static void closeConnection(){
-        try {
-            connection.close();
-        } catch (SQLException throwables) {
-            throw new RuntimeException(throwables);
         }
     }
 
