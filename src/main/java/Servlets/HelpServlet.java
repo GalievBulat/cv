@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet("/job")
-public class JobServlet extends HttpServlet {
+@WebServlet("/help")
+public class HelpServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Render render =new Render();
-        render.renderMap("job.ftl",new HashMap<>(),resp.getWriter());
+        render.renderMap("help.ftl",new HashMap<>(),resp.getWriter());
     }
 }

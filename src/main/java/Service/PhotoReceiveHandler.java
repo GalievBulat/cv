@@ -14,6 +14,7 @@ public class PhotoReceiveHandler {
             /*
             if (!dir.delete())
                 throw new RuntimeException();*/
+            //TODO
         } else if (!dir.mkdir())
             throw new RuntimeException();
         String[] submittedFileName = part.getSubmittedFileName().split("\\.");

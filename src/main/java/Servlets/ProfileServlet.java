@@ -1,10 +1,8 @@
 package Servlets;
 
-import DAO.DAO;
-import DAO.UserTCDAOImpl;
 import Model.UserTC;
-import DAO.CommandHasntWorkedException;
-import Service.PhotoReceiveHandler;
+import Service.JSONConverter;
+import Service.UserOperatingHandlerDB;
 import View.Render;
 import freemarker.template.TemplateException;
 
@@ -13,10 +11,10 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @WebServlet("/profile")
 @MultipartConfig
@@ -25,9 +23,9 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         try {
-            DAO<UserTC> dao = new UserTCDAOImpl();
+            UserOperatingHandlerDB searchingHandler = new UserOperatingHandlerDB();
             long tc = (long) session.getAttribute("tc");
-            Optional <UserTC> oUser = dao.find(tc);
+            Optional <UserTC> oUser = searchingHandler.searchForUser(tc);
             Render render= new Render();
             if (oUser.isPresent()){
                 UserTC user = oUser.get();
@@ -43,7 +41,7 @@ public class ProfileServlet extends HttpServlet {
                 req.setAttribute("errorMessage","wrong password");
                 resp.sendRedirect("/cv/auth");
             }
-        } catch (IOException | RuntimeException | TemplateException throwables) {
+        } catch (IOException | RuntimeException throwables) {
             req.setAttribute("errorMessage",throwables.getMessage());
             resp.sendRedirect("/cv/auth");
         }
@@ -51,11 +49,18 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Part avatar =  req.getPart("avatar");
-        PhotoReceiveHandler pR = new PhotoReceiveHandler();
-        String path = pR.receiveAPhoto(avatar,getServletContext().getRealPath(""),(long)(req.getSession(false).getAttribute("tc")));
-        UserPhotoAdding photoAdding = new UserPhotoAdding();
-        photoAdding.addPhotoPathFromUser((long) req.getSession().getAttribute("tc"),path);
-        resp.getWriter().write(path);
+        HttpSession session = req.getSession();
+        long tc = (long) session.getAttribute("tc");
+        String json =req.getReader().lines().collect(Collectors.joining());
+        JSONConverter converter = new JSONConverter();
+        String[] strings = converter.convertJSON(json);
+        String name =  strings[0].equals("name")? strings[1] : "";
+        String surname =  strings[2].equals("surname")? strings[3] : "";
+        UserOperatingHandlerDB handlerDB = new UserOperatingHandlerDB();
+        UserTC userTC = handlerDB.searchForUser(tc).orElseThrow(IllegalArgumentException::new);
+        userTC.setName(name);
+        userTC.setSurname(surname);
+        handlerDB.updateUser(userTC);
+        resp.setStatus(200);
     }
 }

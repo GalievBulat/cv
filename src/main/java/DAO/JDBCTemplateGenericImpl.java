@@ -1,6 +1,7 @@
 package DAO;
 
-import Model.Timetable;
+import Interfaces.JDBCTemplate;
+import Interfaces.RowMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,27 +10,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCTemplateGenericImpl<T> implements JDBCTemplate<T>{
+public class JDBCTemplateGenericImpl<T> implements JDBCTemplate<T> {
     @Override
     public List<T> query(String SQLQuery, RowMapper<T> rowMapper, Object... args) {
         List<T> list = new ArrayList<>();
         try {
             Connection connection = ConnectionHandler.getConnection();
-            try(connection) {
-                PreparedStatement pS = connection.prepareStatement(SQLQuery);
-                try (pS) {
-                    for (int i = 0; i < args.length; i++)
-                        pS.setObject(i+1, args[i]);
-                    ResultSet rs = pS.executeQuery();
-                    try (rs) {
-                        while (rs.next()){
-                            list.add(rowMapper.getInstance(rs));
+            //try(connection) {
+                synchronized (connection) {
+                    PreparedStatement pS = connection.prepareStatement(SQLQuery);
+                    try (pS) {
+                        for (int i = 0; i < args.length; i++)
+                            pS.setObject(i + 1, args[i]);
+                        ResultSet rs = pS.executeQuery();
+                        try (rs) {
+                            while (rs.next()) {
+                                list.add(rowMapper.getInstance(rs));
+                            }
                         }
                     }
-                }
+                //}
             }
         }catch (SQLException e){
-            throw new RuntimeException(e.getMessage(),e);
+            throw new RuntimeException(e);
         }
         return list;
     }

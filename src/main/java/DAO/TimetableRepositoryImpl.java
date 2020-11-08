@@ -1,23 +1,21 @@
 package DAO;
 
+import Interfaces.JDBCTemplate;
+import Interfaces.Repository;
 import Model.DayOfTheWeek;
+import Model.Station;
 import Model.Timetable;
-import Model.UserTC;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-public final class TimetableRepositoryImpl implements Repository<Timetable> {
+public class TimetableRepositoryImpl implements Repository<Timetable> {
 
 
     private final JDBCTemplate<Timetable> jdbc;
     public TimetableRepositoryImpl() {
-        jdbc = new JDBCTemplateGenericImpl<Timetable>();
+        jdbc = new JDBCTemplateGenericImpl<>();
     }
 
 
@@ -49,11 +47,25 @@ public final class TimetableRepositoryImpl implements Repository<Timetable> {
     private final static String findQuery = "SELECT * FROM timetable WHERE id = ?";
 
     @Override
-    public Optional<Timetable> get(int num) {
+    public Optional<Timetable> get(long num) {
         List <Timetable> list = jdbc.query(findQuery,new TimetableMapper(),num);
         if (!list.isEmpty()){
             return Optional.of(list.get(0));
         }else
             return Optional.empty();
+    }
+    //language=sql
+    private final static String findByDWAndTimeQuery ="SELECT * FROM timetable  WHERE bus_stop = ? AND day_of_the_week = ?::dayoftheweek AND time>=? AND time<=?";
+
+    public List<Timetable> findByDWAndTime(Station bS, int dW, Time timeOfStart, Time timeOfFinish){
+        return jdbc.query(findByDWAndTimeQuery, new TimetableMapper(),
+                bS.getName(), DayOfTheWeek.values()[dW].name(), timeOfStart, timeOfFinish);
+    }
+
+    //language=sql
+    private final static String findByTimeQuery = "SELECT * FROM timetable WHERE bus_stop = ? AND time>=? AND time<=?";
+
+    public List<Timetable> findByTime(Station bS,Time timeOfStart,Time timeOfFinish){
+        return jdbc.query(findByTimeQuery,new TimetableMapper(),bS.getName(), timeOfStart,timeOfFinish);
     }
 }

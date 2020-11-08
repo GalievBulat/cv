@@ -1,28 +1,23 @@
 package Model;
 
+import Interfaces.ConvertibleToList;
+import Interfaces.CreatableFromList;
+import Interfaces.WritableToFile;
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFile {
-    private final String name;
-    private final String surname;
-    private final String email;
-    private final String phoneNum;
-    private final long tc;
-    private final String password;
-    private final Date birthDay;
-    private final String avatarPath ;
-    public UserTC(List<String> list){
-        name = list.get(0);
-        surname = list.get(1);
-        email = list.get(2);
-        phoneNum = list.get(3);
-        tc = Long.parseLong(list.get(4));
-        password = list.get(5);
-        birthDay = Date.valueOf(list.get(6));
-        avatarPath = null;
-    }
+public class UserTC implements  ConvertibleToList, WritableToFile {
+    private String name;
+    private String surname;
+    private String email;
+    private String phoneNum;
+    private long tc;
+    private String password;
+    private Date birthDay;
+    private String avatarPath ;
     public List<String> toList() {
         List<String> list = new ArrayList<>();
         list.add(name);
@@ -34,7 +29,7 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         list.add(birthDay.toString());
         return list;
     }
-    public UserTC(String _name, String _surname, String _email, String _phoneNum, long _tc,
+    private UserTC(String _name, String _surname, String _email, String _phoneNum, long _tc,
                   String _password, Date _birthDay){
         name = _name;
         surname = _surname;
@@ -45,8 +40,12 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         birthDay = _birthDay;
         avatarPath = null;
     }
+
+    private UserTC() {
+    }
+
     public UserTC(String _name, String _surname, String _email, String _phoneNum, long _tc,
-                  String _password, Date _birthDay,String _avatarPath){
+                  String _password, Date _birthDay, String _avatarPath){
         name = _name;
         surname = _surname;
         email = _email;
@@ -102,12 +101,66 @@ public class UserTC implements CreatableFromList,ConvertibleToList,WritableToFil
         return toString();
     }
 
-    public UserTC getUserWithPicture(UserTC user,String avatarPath){
-        return new UserTC(user.getName(),user.getSurname(),user.getEmail(),user.getPhoneNum(),user.getTc(),
-                user.getPassword(),user.getBirthDay(),avatarPath);
-    }
 
     public String getAvatarPath() {
         return avatarPath;
+    }
+    public static class Builder {
+        private final UserTC user;
+        public Builder(){
+            user = new UserTC();
+        }
+        public Builder name(String name) {
+            user.name = name;
+            return this;
+        }
+
+        public Builder surname(String surname) {
+            user.surname = surname;
+            return this;
+        }
+
+        public Builder email(String email) {
+            user.email = email;
+            return this;
+        }
+
+        public Builder phoneNum(String phoneNum) {
+            user.phoneNum = phoneNum;
+            return this;
+        }
+
+        public Builder tc(long tc) {
+            user.tc = tc;
+            return this;
+        }
+
+
+        public Builder password(String password) {
+            user.password = password;
+            return this;
+        }
+
+        public Builder birthDay(Date birthDay) {
+            user.birthDay = birthDay;
+            return this;
+        }
+
+        public Builder avatarPath(String avatarPath) {
+            user.avatarPath = avatarPath;
+            return this;
+        }
+        public UserTC build(){
+            return user;
+        }
+        
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

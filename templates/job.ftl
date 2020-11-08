@@ -1,8 +1,8 @@
 
-<#include  "config.ftl">
+<#include  "resources/config.ftl">
 <@config name="auth"/>
 <body style=" margin: 0;  height: 100%;font-family: Times New Roman,serif;font-style: normal;font-weight: 600;">
-<#include "nav.ftl">
+<#include "resources/nav.ftl">
 
 <div class="backgr_main2"  >
     <div class="highlight_back" style="margin-top: 27%;"><p class="highlight_text fancy_colour" >Устройство на работу</p></div>

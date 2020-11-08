@@ -1,27 +1,21 @@
 package Model;
 
+import Interfaces.Localization;
+import Service.RussianLocalization;
+
 import java.sql.Time;
 
 public class Timetable {
-    private final long id;
-    private final Station bus_stop;
-    private final DayOfTheWeek day_of_the_week;
-    private final Time time;
-    private final int route_num;
-    public Timetable(long id, String bus_stop, DayOfTheWeek day_of_the_week, Time time, int route_num) {
-        this.id = id;
-        this.bus_stop = Station.getInstance(bus_stop);
-        this.day_of_the_week = day_of_the_week;
-        this.time = time;
-        this.route_num = route_num;
+    private long id;
+    private Station bus_stop;
+    private DayOfTheWeek day_of_the_week;
+    private Time time;
+    private int route_num;
+
+
+    private Timetable() {
     }
-    public Timetable(long id, String bus_stop, String day_of_the_week, Time time, int route_num) {
-        this.id = id;
-        this.bus_stop = Station.getInstance(bus_stop);
-        this.day_of_the_week = DayOfTheWeek.valueOf(day_of_the_week.toUpperCase());
-        this.time = time;
-        this.route_num = route_num;
-    }
+
     @Override
     public String toString() {
         return "Timetable{" +
@@ -37,6 +31,15 @@ public class Timetable {
                 "\"id\":" + id +
                 ", \"bus_stop\":\"" + bus_stop + '\"' +
                 ", \"day_of_the_week\":\"" + day_of_the_week + "\""+
+                ", \"time\":\"" + time + "\"" +
+                ", \"route_num\":" + route_num +
+                '}';
+    }
+    public String toJSONLocalized(Localization localization){
+        return "{" +
+                "\"id\":" + id +
+                ", \"bus_stop\":\"" + bus_stop + '\"' +
+                ", \"day_of_the_week\":\"" + localization.localize(day_of_the_week) + "\""+
                 ", \"time\":\"" + time + "\"" +
                 ", \"route_num\":" + route_num +
                 '}';
@@ -76,5 +79,34 @@ public class Timetable {
             b[i] = (bin.charAt(i) == '1');
         }
         return b;
+    }
+    public static class Builder{
+        Timetable timetable;
+        public Builder(){
+            timetable = new Timetable();
+        }
+        public Builder id(long id) {
+            timetable.id = id;
+            return this;
+        }
+        public Builder busStop(Station bus_stop) {
+            timetable.bus_stop = bus_stop;
+            return this;
+        }
+        public Builder dayOfTheWeek(DayOfTheWeek day_of_the_week) {
+            timetable.day_of_the_week = day_of_the_week;
+            return this;
+        }
+        public Builder time(Time time) {
+            timetable.time = time;
+            return this;
+        }
+        public Builder routeNum(int route_num) {
+            timetable.route_num = route_num;
+            return this;
+        }
+        public Timetable build() {
+            return timetable;
+        }
     }
 }

@@ -1,9 +1,9 @@
-<#include  "config.ftl">
+<#include  "resources/config.ftl">
 <@config name="routes"/>
-<body style=" margin: 0;  height: 100%;font-family: Times New Roman,serif;font-style: normal;font-weight: 600;">
-<#include "nav.ftl">
-<div class="backgr" style="overflow: auto;margin-top: 56px;">
-    <#include  "header.ftl">
+<#include "resources/background.ftl">
+<#include "resources/nav.ftl">
+<div  style="overflow: auto;margin-top: 56px;">
+    <#include  "resources/header.ftl">
     <@header text ="Timetable"/>
     <div style="display: flex;">
         <div class="figure2 leftAl">
@@ -37,11 +37,10 @@
                     <option value="6">Суббота</option>
                     <option value="7">Воскресенье</option>
                 </select>
-                <div class="btn btn-dark main_button btn-sm default"<#-- style="background-color: #1c3738;
-    border-color: #1c3738;" -->  onclick="send()">
+                <div class="btn btn-dark main_button btn-sm default" onclick="send()">
                     <p class="highlight  default" style="font-size: 150%">Поиск</p></div>
             </form>
-            <#include "field.ftl">
+            <#include "resources/field.ftl">
             <script>
                 function send() {
                     let form = $("#form")[0];
@@ -55,7 +54,7 @@
                         data: json,
                         processData: false,
                         contentType: false,
-                        data_type: json,
+                        data_type: "json",
                         success: function (_data) {
                             let inf = JSON.parse(_data);
                             let rootEl = document.getElementById("list");

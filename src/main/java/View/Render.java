@@ -15,15 +15,22 @@ public class Render {
     //private static final String directory ="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\cv\\templates";
     private static final String directory ="C:\\Users\\Kakad\\Documents\\cv\\templates";
     private final Configuration cfg;
-    public Render() throws IOException{
+    public Render(){
         cfg = new Configuration(Configuration.VERSION_2_3_30);
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setDirectoryForTemplateLoading(new File(directory));
-
-
+        try {
+            cfg.setDefaultEncoding("UTF-8");
+            cfg.setDirectoryForTemplateLoading(new File(directory));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void renderMap(String file, Map<String,Object> root, Writer writer) throws IOException, TemplateException {
-        Template temp = cfg.getTemplate(file);
-        temp.process(root, writer);
+    public void renderMap(String file, Map<String,Object> root, Writer writer){
+        Template temp = null;
+        try {
+            temp = cfg.getTemplate(file);
+            temp.process(root, writer);
+        } catch (IOException | TemplateException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

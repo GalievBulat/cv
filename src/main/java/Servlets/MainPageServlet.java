@@ -17,11 +17,7 @@ public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Render render =new Render();
-        try {
-            render.renderMap("main_page.ftl",new HashMap<>(),resp.getWriter());
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        }
+        render.renderMap("main_page.ftl",new HashMap<>(),resp.getWriter());
     }
 
 }

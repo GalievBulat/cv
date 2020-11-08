@@ -2,7 +2,9 @@ package Servlets;
 
 import Model.Station;
 import Model.Timetable;
+import Service.JSONConverter;
 import Service.RouteConvertingHandler;
+import Service.RussianLocalization;
 import Service.TimetableSearchingHandler;
 import View.Render;
 import freemarker.template.TemplateException;
@@ -24,14 +26,8 @@ import java.util.stream.Collectors;
 public class RouteSearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         Render render = new Render();
-        try {
-            render.renderMap("routes.ftl", Collections.emptyMap(),resp.getWriter());
-        } catch (TemplateException e) {
-            throw new RuntimeException(e);
-        }
+        render.renderMap("routes.ftl", Collections.emptyMap(),resp.getWriter());
     }
     //day_of_the_week,*,station,PSH,time1,00:00,time2,22:00
     //day_of_the_week:*,station:PSH,time1:00:00}
@@ -40,8 +36,8 @@ public class RouteSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         BufferedReader iS = req.getReader();
-        String json = iS.readLine().replaceAll("(\":\")+",",").replaceAll("[}\"{]+","");
-        String[] strings = json.split(",");
+        JSONConverter jConv = new JSONConverter();
+        String[] strings = jConv.convertJSON(iS.readLine());
         String station = strings[0].equals("station")? strings[1] : "";
         String time1 =  strings[2].equals("time1")? strings[3] : "00:00";
         String time2 =  strings[4].equals("time2")? strings[5] : "24:00";
@@ -57,7 +53,7 @@ public class RouteSearchServlet extends HttpServlet {
             tList = sH.findByDWAndTime(Station.valueOf(station),Integer.parseInt(dW),timeOfStart,timeOfFinish);
         List<String> result= new ArrayList<>();
         for(Timetable u: tList){
-            result.add(u.toJSON());
+            result.add(u.toJSONLocalized(new RussianLocalization()));
         }
         resp.getWriter().write(result.toString());
         resp.setStatus(200);
