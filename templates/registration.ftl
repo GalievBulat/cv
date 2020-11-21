@@ -26,6 +26,7 @@
 
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 <script src="templates/resources/reg.js" charset="UTF-8"></script>
 <@bootstrapjs></@bootstrapjs>
 </body>

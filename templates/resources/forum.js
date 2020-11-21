@@ -35,7 +35,8 @@ function printPosts(data){
             if (json[it]["parent_id"] !== 0) {
                 head = '<div id ="'+json[it]["id"] + '" style="margin-left: 10% " ' + ' class=\"card_style card\" class=\"card-body\">' +
                     ' <div class="card-body"> <h5 class="card-title">';
-                answer = '<p class="card-text">' + decodeURI("%D0%92%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%20") + json[it]["parent_name"] +'</p>';
+                answer = '<p class="card-text">' + decodeURI("%D0%92%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%20")
+                    + json[it]["parent_name"] +'</p>';
             }
             let author='<h5 class="card-title">' + json[it]["author_name"] + '</h5> ';
             let categories = '';
@@ -95,8 +96,8 @@ function sendComment() {
     let categories= $('#categories').val();
     root["parent_id"] = '' + parentId;
     root["author_id"] = '' + authorId;
-root["message"] = message;
-root["categories"] = '' + categories;
+    root["message"] = message;
+    root["categories"] = '' + categories;
 let json = JSON.stringify(root);
 $.ajax({
     type: 'POST',
@@ -108,7 +109,7 @@ $.ajax({
     success: function (data) {
 },
     error: function (_data) {
-        document.write(data.responseText);
+        document.write(_data.responseText);
 }
 });
 }

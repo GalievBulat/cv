@@ -44,11 +44,12 @@
         </div>
         <div class="figure2 rightAl "  style="text-align: center;">
             <div style="background: black;height: 45px;border-radius: 0.5rem 0.5rem 0 0;"></div>
-            <div class="spread" id="list" style="overflow: auto"></div>
+            <div class="spread" id="list" style="overflow: auto; height: 555px;"></div>
         </div>
     </div>
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 </body>
 <@bootstrapjs></@bootstrapjs>
 <script src="templates/resources/routes.js" charset="UTF-8"></script>

@@ -1,9 +1,9 @@
 package Service;
 
-import DAO.TcRepository;
+import DAO.TcDAO;
 
 public class TcManagerService {
-    TcRepository repository= new TcRepository();
+    TcDAO repository= new TcDAO();
     public long getTcBalance(long tc){
         return repository.getBalance(tc);
     }

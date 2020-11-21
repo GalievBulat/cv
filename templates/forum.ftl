@@ -36,6 +36,7 @@
 
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 <script src="templates/resources/forum.js" charset="UTF-8"></script>
 </body>
 <script>

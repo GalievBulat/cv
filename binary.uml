@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.binary_tree</OriginalElement>
+  <nodes>
+    <node x="-104.54477611940325" y="629.2537313432836">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.post</node>
+    <node x="288.3973880597013" y="769.7164179104477">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.posts_category</node>
+    <node x="149.55970149253716" y="577.2537313432836">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.category</node>
+    <node x="-237.56716417910462" y="364.52238805970154">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.usertc</node>
+    <node x="181.61940298507437" y="163.34328358208955">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.tc</node>
+    <node x="433.4029850746269" y="303.76119402985074">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.timetable</node>
+    <node x="-55.56716417910462" y="375.52238805970154">99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.booking</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.post" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.usertc">
+      <point x="0.0" y="-82.5" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.booking" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.tc">
+      <point x="0.0" y="-93.5" />
+      <point x="27.432835820895377" y="339.52238805970154" />
+      <point x="-24.317164179104623" y="339.52238805970154" />
+      <point x="40.25" y="93.5" />
+    </edge>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.usertc" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.tc">
+      <point x="0.0" y="-104.5" />
+      <point x="-156.56716417910462" y="339.52238805970154" />
+      <point x="-104.81716417910462" y="339.52238805970154" />
+      <point x="-40.25" y="93.5" />
+    </edge>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.post" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.post">
+      <point x="-37.75" y="82.5" />
+      <point x="46.399253731343094" y="785.5970149253731" />
+      <point x="121.90298507462666" y="762.6716417910447" />
+      <point x="121.90298507462666" y="660.1716417910447" />
+      <point x="-75.5" y="-0.0" />
+    </edge>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.posts_category" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.category">
+      <point x="36.00000000000003" y="-38.0" />
+      <point x="384.9347014925374" y="729.6567164179105" />
+      <point x="379.6716417910447" y="716.7611940298507" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.posts_category" target="99b57f3a-60c9-4830-8438-c7b68112caf6.TABLE:postgres.public.post">
+      <point x="-35.99999999999997" y="-38.0" />
+      <point x="201.17350746268647" y="788.4029850746269" />
+      <point x="124.76492537313419" y="874.3731343283582" />
+      <point x="37.75" y="82.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6979166666666666" x="599.6119402985075" y="523.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

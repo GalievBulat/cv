@@ -6,7 +6,7 @@ import Model.DayOfTheWeek;
 import Model.Station;
 import Model.Timetable;
 
-import java.sql.*;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +59,7 @@ public class TimetableRepositoryImpl implements Repository<Timetable> {
 
     public List<Timetable> findByDWAndTime(Station bS, int dW, Time timeOfStart, Time timeOfFinish){
         return jdbc.query(findByDWAndTimeQuery, new TimetableMapper(),
-                bS.getName(), DayOfTheWeek.values()[dW].name(), timeOfStart, timeOfFinish);
+                bS.getName(), DayOfTheWeek.values()[dW-1].name().toLowerCase(), timeOfStart, timeOfFinish);
     }
 
     //language=sql

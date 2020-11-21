@@ -1,8 +1,6 @@
 package Service;
 
 import DAO.PostRepositoryImpl;
-import Interfaces.Localization;
-import Interfaces.Repository;
 import Model.Post;
 
 import java.util.List;

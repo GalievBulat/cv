@@ -6,7 +6,7 @@
 
 <div  style="margin-top: 56px;">
     <#include  "resources/header.ftl">
-    <@header text ="Авторизизацция"/>
+    <@header text ="Авторизизация"/>
     <div class="figure2" style="width: 80%;">
         <#include "resources/errors.ftl">
         <form method="post"  class="form ">
@@ -23,6 +23,7 @@
 
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 
 <@bootstrapjs></@bootstrapjs>
 </body>

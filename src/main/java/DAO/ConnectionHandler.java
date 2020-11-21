@@ -21,7 +21,6 @@ public class ConnectionHandler {
                     throw new RuntimeException(e);
                 }
                 connection = DriverManager.getConnection(url, Secret.username, Secret.password);
-
             }
             return connection;
         } catch (SQLException e){

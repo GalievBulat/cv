@@ -2,7 +2,6 @@ package Servlets;
 
 import Service.BookingAddingHandler;
 import View.Render;
-import freemarker.template.TemplateException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

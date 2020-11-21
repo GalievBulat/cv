@@ -22,12 +22,14 @@
             <input class="form_element" type="tel" name="phone_num" placeholder="тел номер (+7**********)"/>
             <input class="form_element" type="text" name="spot" placeholder="место приезда"/>
             <input class="form_element" type="date" name="date" placeholder="день приезда"/>
-            <input type="submit" class="btn btn-dark main_button btn-sm default" value="Отправить запрос">
+            <input style="height: 80px;font-size: 200%;width: 60%;margin-bottom: 3%;"
+                   type="submit" class="btn btn-dark main_button btn-sm default" value="Забронировать">
         </form>
     </div>
 
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 
 <@bootstrapjs></@bootstrapjs>
 </body>

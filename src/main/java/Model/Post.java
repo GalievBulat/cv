@@ -2,7 +2,6 @@ package Model;
 
 import Interfaces.Localization;
 import Service.PostCategoriesService;
-import Service.RussianLocalization;
 
 import java.sql.Date;
 import java.sql.Time;
