@@ -7,13 +7,10 @@ import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class Render {
-    //private static final String directory ="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\cv\\templates";
-    private static final String directory ="C:\\Users\\Kakad\\Documents\\cv\\templates";
+    private static final String directory ="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\cv\\templates";
     private final Configuration cfg;
 
     public Render(){

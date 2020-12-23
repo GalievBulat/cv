@@ -6,7 +6,6 @@ import Service.PostCategoriesService;
 import Service.PostsOperatingHandler;
 import Service.RussianLocalization;
 import View.Render;
-import freemarker.template.TemplateException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -80,7 +78,8 @@ public class PostsServlet extends HttpServlet{
             handler.add(post, categories);
             resp.setStatus(200);
         } catch (RuntimeException e) {
-            req.setAttribute("errorMessage",e.getMessage());
+            req.setAttribute("errorMessage","Exception: " +e.getMessage());
+            resp.setStatus(300);
             doGet(req,resp);
         }
     }

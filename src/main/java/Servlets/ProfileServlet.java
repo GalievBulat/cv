@@ -4,14 +4,15 @@ import Model.UserTC;
 import Service.JSONConverter;
 import Service.UserOperatingHandlerDB;
 import View.Render;
-import freemarker.template.TemplateException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -36,13 +37,16 @@ public class ProfileServlet extends HttpServlet {
                 root.put("surname",user.getSurname());
                 if (user.getAvatarPath()!=null){
                     root.put("avatar",user.getAvatarPath());
-                } else root.put("avatar","avatar.png");
+                } else root.put("avatar","");
                 if (req.getAttribute("errorMessage") != null)
                     root.put("errorMessage",req.getAttribute("errorMessage"));
                 render.renderMap("profile.ftl",root,resp.getWriter());
             }else {
                 req.setAttribute("errorMessage","wrong password");
-                resp.sendRedirect("/cv/auth");
+                //resp.sendRedirect("/cv/auth");
+                Map<String, Object> root = new HashMap<>();
+                root.put("errorMessage","no user");
+                render.renderMap("auth.ftl",root,resp.getWriter());
             }
     }
 
@@ -63,7 +67,8 @@ public class ProfileServlet extends HttpServlet {
             handlerDB.updateUser(userTC);
             resp.setStatus(200);
         }catch (RuntimeException e) {
-            req.setAttribute("errorMessage",e.getMessage());
+            req.setAttribute("errorMessage","Exception: " +e.getMessage() );
+            resp.setStatus(300);
             doGet(req,resp);
         }
     }

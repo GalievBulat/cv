@@ -2,7 +2,6 @@ package DAO;
 
 import Interfaces.RowMapper;
 import Model.Post;
-import Model.UserTC;
 
 import java.sql.Date;
 import java.sql.ResultSet;

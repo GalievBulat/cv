@@ -1,8 +1,7 @@
 package Service;
 
-import Interfaces.AuthHandler;
-import Interfaces.DAO;
 import DAO.UserTCRepositoryImpl;
+import Interfaces.AuthHandler;
 import Interfaces.Repository;
 import Interfaces.UserAddingHandler;
 import Model.UserTC;
@@ -46,13 +45,13 @@ public final class UserOperatingHandlerDB implements AuthHandler, UserAddingHand
             throw new RuntimeException("not a name");
         if (surname== null || surname.equals(""))
             throw new RuntimeException("not a surname");
-        if (email== null ||!email.matches("\\w+@\\w+"))
+        if (email== null ||!email.matches("\\w+\\@\\w+\\.\\w+"))
             throw new RuntimeException("not an email");
         if (phoneNum== null ||!phoneNum.matches("\\+\\d{11}"))
             throw new RuntimeException("not a number");
         if (password== null || password.length()<8)
             throw new RuntimeException("wrong tc have been stated");
-        if (birthDay== null || !birthDay.matches("\\d{2}.\\d{2}"))
+        if (birthDay== null )
             throw new RuntimeException("wrong date format");
         UserTC user = new UserTC.Builder()
                 .name(name)

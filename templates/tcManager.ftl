@@ -17,6 +17,7 @@
     </a>
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=30/>
 
 <@bootstrapjs></@bootstrapjs>
 </body>

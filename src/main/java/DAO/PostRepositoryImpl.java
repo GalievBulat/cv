@@ -2,7 +2,6 @@ package DAO;
 
 import Interfaces.JDBCTemplate;
 import Interfaces.Repository;
-import Interfaces.RowMapper;
 import Model.Post;
 
 import java.sql.Connection;

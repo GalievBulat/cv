@@ -7,5 +7,4 @@ public interface DAO<T> {
     void update(T model,long tc) ;
     void delete(long id);
     void add(T model);
-    boolean checkIfPresentedByTC(long tc);
 }

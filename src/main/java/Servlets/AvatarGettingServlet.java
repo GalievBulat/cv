@@ -25,8 +25,9 @@ public class AvatarGettingServlet extends HttpServlet {
             photoAdding.addPhotoPathToUser((long) req.getSession().getAttribute("tc"), path);
             resp.getWriter().write(path);
         } catch (IOException | RuntimeException throwables) {
-        req.setAttribute("errorMessage",throwables.getMessage());
-        resp.sendRedirect("/cv/profile");
+            req.setAttribute("errorMessage","Exception: " +throwables.getMessage());
+            resp.setStatus(300);
+        //resp.sendRedirect("/cv/profile");
     }
 
     }

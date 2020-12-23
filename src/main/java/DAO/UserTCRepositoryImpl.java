@@ -1,6 +1,5 @@
 package DAO;
 
-import Interfaces.DAO;
 import Interfaces.JDBCTemplate;
 import Interfaces.Repository;
 import Model.UserTC;
@@ -22,7 +21,7 @@ public final class UserTCRepositoryImpl implements Repository<UserTC> {
 
     @Override
     public void update(UserTC model){
-        jdbc.query(updateQuery,new UserTCMapper(),model.getName(),model.getSurname(),model.getEmail(),model.getPhoneNum(),model.getBirthDay(),model.getTc());
+        jdbc.update(updateQuery,model.getName(),model.getSurname(),model.getEmail(),model.getPhoneNum(),model.getBirthDay(),model.getTc());
     }
 
     //language=sql

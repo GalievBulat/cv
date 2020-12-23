@@ -1,8 +1,5 @@
 package Service;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.Reader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

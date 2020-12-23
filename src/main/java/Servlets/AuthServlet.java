@@ -1,12 +1,12 @@
 package Servlets;
 
-import Model.UserTC;
 import Interfaces.AuthHandler;
-import Service.UserOperatingHandlerDB;
+import Model.UserTC;
 import Service.IdEncoding;
 import Service.TextEncoding;
+import Service.UserOperatingHandlerDB;
 import View.Render;
-import freemarker.template.TemplateException;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +44,8 @@ public class AuthServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InvalidKeyException | RuntimeException e) {
-            req.setAttribute("errorMessage",e.getMessage());
+            req.setAttribute("errorMessage","Exception: " +e.getMessage());
+            resp.setStatus(300);
             doGet(req,resp);
         }
     }

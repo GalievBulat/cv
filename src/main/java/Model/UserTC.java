@@ -1,12 +1,10 @@
 package Model;
 
 import Interfaces.ConvertibleToList;
-import Interfaces.CreatableFromList;
 import Interfaces.WritableToFile;
 
-import java.sql.Time;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserTC implements  ConvertibleToList, WritableToFile {

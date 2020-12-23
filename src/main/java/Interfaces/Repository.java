@@ -1,6 +1,5 @@
 package Interfaces;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface Repository<T> {

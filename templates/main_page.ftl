@@ -10,7 +10,7 @@
 </div>
 <div class="devider"></div>
 <div class="backgr_colour">
-    <div class="d-flex align-content-start flex-wrap highlight_back" style="padding-top: 0;padding-bottom: 0;" ><p class="highlight_text spread">О нас</p></div>
+    <div class="d-flex align-content-start flex-wrap highlight_back" style="width: 20%;font-size: 180%;padding-top: 0;padding-bottom: 0;" ><p class="highlight_text spread">О нас</p></div>
     <div class="box_group">
         <div class="container_highlight">
             <div style="display: flex">
@@ -25,6 +25,7 @@
     </div>
 </div>
 <#include "resources/footer.ftl">
+<@footer margin=0/>
 </body>
 <@bootstrapjs></@bootstrapjs>
 </html>

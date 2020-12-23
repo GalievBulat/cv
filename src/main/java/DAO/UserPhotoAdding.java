@@ -1,7 +1,6 @@
 package DAO;
 
 import Interfaces.JDBCTemplate;
-import DAO.JDBCTemplateGenericImpl;
 import Model.UserTC;
 
 import java.util.NoSuchElementException;

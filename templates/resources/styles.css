@@ -86,8 +86,8 @@
 }
 .rightAl{
     width: 80%;
-    margin-left: 15px;
-    margin-right: 5%;
+    margin-left: 3%;
+    margin-right: 7%;
     height: 600px;
     background: #1c3738;
     border-radius: .5rem;
@@ -202,6 +202,7 @@
 .spread{
     width: 100%;
     height: 100%;
+    font-size: 200%;
 }
 .box_group{
     height: 50%;

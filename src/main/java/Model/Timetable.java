@@ -1,7 +1,6 @@
 package Model;
 
 import Interfaces.Localization;
-import Service.RussianLocalization;
 
 import java.sql.Time;
 

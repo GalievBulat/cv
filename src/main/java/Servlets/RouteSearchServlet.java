@@ -7,21 +7,16 @@ import Service.RouteConvertingHandler;
 import Service.RussianLocalization;
 import Service.TimetableSearchingHandler;
 import View.Render;
-import freemarker.template.TemplateException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.security.InvalidKeyException;
 import java.sql.Time;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 //@WebServlet("/timetable")
 public class RouteSearchServlet extends HttpServlet {
@@ -61,6 +56,7 @@ public class RouteSearchServlet extends HttpServlet {
        } catch (RuntimeException e) {
            req.setAttribute("errorMessage",e.getMessage());
            doGet(req,resp);
+           resp.setStatus(300);
        }
     }
 }

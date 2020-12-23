@@ -1,5 +1,7 @@
 package Servlets;
 
+import View.Render;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -7,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidKeyException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/sign_out")
 public class SignOutServlet extends HttpServlet {
@@ -21,8 +24,12 @@ public class SignOutServlet extends HttpServlet {
             }
             resp.sendRedirect("/cv/auth");
         }catch (RuntimeException e) {
-            req.setAttribute("errorMessage",e.getMessage());
-            resp.sendRedirect("cv/auth");
+            //req.setAttribute("errorMessage",e.getMessage());
+            //resp.sendRedirect("cv/auth");
+            Render render = new Render();
+            Map<String, Object> root = new HashMap<>();
+            root.put("errorMessage",e.getMessage());
+            render.renderMap("auth.ftl",root,resp.getWriter());
         }
     }
 }
